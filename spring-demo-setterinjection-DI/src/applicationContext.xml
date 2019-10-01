@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!-- Load properties file -->
+	<context:property-placeholder location="classpath:sports.properties"/>
+	<!-- Defining bean for dependency -->
+	<bean id= "myFortune" class="com.ioc.springdemo.HappyFortuneServices">
+	</bean>
+	<bean id= "myPayment" class="com.ioc.springdemo.PaymentNotificationUpdate">
+	</bean>
+
+	<!-- Define your beans here -->
+	<bean id="myCoach2" class="com.ioc.springdemo.TrackCoach">
+		<constructor-arg ref="myFortune"></constructor-arg>
+		<constructor-arg ref="myPayment"></constructor-arg>
+	</bean>
+	<!-- setup constructior injection -->
+	<bean id="myCoach" class="com.ioc.springdemo.CricketCoach">
+		<constructor-arg ref="myFortune"></constructor-arg>
+		<constructor-arg ref="myPayment"></constructor-arg>
+		<!-- <property name="emailAddress" value="syam661@gmail.com"></property>
+		<property name="team" value="Chennai Super Kings"></property>-->
+		<property name="emailAddress" value="${foo.email}"></property>
+		<property name="team" value="${foo.team}"></property>
+	</bean>
+	<!-- setup constructior injection -->
+	<bean id="myCoach3" class="com.ioc.springdemo.HockeyCoach">
+		<property name="fortuneService" ref="myFortune"></property>
+		<property name="paymentService" ref="myPayment"></property>
+	</bean>
+	
+</beans>
+
+
+
+
+
